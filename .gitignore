@@ -1,0 +1,8 @@
+#Intellij IDEA files
+.idea
+
+# build files
+build
+
+# gradle files
+.gradle
