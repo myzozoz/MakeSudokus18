@@ -1,4 +1,4 @@
-package makesudokus;
+package makesudokus.domain;
 
 public class HelloWorld {
     public static void main(String[] argv) {
