@@ -14,7 +14,9 @@ import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
 
 
-
+/**
+ * The main (and currently only) GUI class. For now.
+ */
 public class JavaFXController extends Application {
     private final int[][] EXAMPLE_SUDOKU_EASY = {
             {0,0,0,8,9,0,0,0,4},
@@ -30,6 +32,11 @@ public class JavaFXController extends Application {
     private final int SCREEN_WIDTH = 900;
     private final int SCREEN_HEIGHT = 900;
 
+    /**
+     * Contains the GUI stuff.
+     * @param primaryStage See JavaFX documentation.
+     * @throws Exception
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         System.out.println("Starting application");

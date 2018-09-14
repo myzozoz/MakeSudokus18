@@ -1,11 +1,11 @@
 # Viikkoraportti 2
 
-11.9.2018
-Viikko 2. Miehistön moraali on alhaalla, sillä vaikka työtä tehtiin ohjeistuksen mukaan, jätti kapteeni lopulta pushaamatta masteriin ja tehty ykkösviikon työ valui hukkaan. Miehistön mielialaa ei edelleenkään paranna se, että sen sijaan, että oltaisiin vihdoinkin päästy kirjoittamaan sitä koodia, on keskitytty sen sijaan lukemaan dokumentaatiota JavaFX:stä. Onhan siitä kuitenkin aikaa, kun on väännetty mitään GUI:ta Javalla. Sen lisäksi on tullut pohdittua ohjelman yleistä rakennetta.
+Viikolla 2 on tapahtunut edistystä muutamaankin suuntaan. Esimerkiksi käyttöliittymä on lähtenyt aluilleen. En ole ennen JavaFX:llä ohjelmoinut, joten jonkin verran on saanut käyttää aikaa pelkkään dokumentaatioon tutustuen. Tähän käytin kaikki alkuviikon työtuntini. Tällä hetkellä applikaatiota käynnistäessä pääsee näkemään upean, tasaisen ruudukon nappeja. Napit muodostavat sudokunäkymän, jossa on kovakoodattuna esimerkkisudoku. Nappia painaessa muuttuu napin kirjain C:ksi. Tällä ei ole mitään käytännön vaikutusta, mutta sisältyi kälin kanssa säheltämiseen.
 
-Olen pohtinut, onko järkeä tehdä käliä ennen logiikkaa, mutta totuus on, että tekstikäyttöisellä liittymällä on hieman ankeata tutkailla kaksiulotteisia numeromatriiseja. Virallinen viikon 2 tavoite onkin nyt tunkata käli ykkösellä kuntoon, sisältäen jotakuinkin seuraavat asiat:
-- Päävalikko, vaikka se ei oikeastaan tekisikään mitään. Onhan helpompaa jälkeenpäin muokata valikkoa, kuin muokata koko ohjelman kulkua.
-- 9x9 ruudukko, jossa näkyy luvut. 3x3 -segmenttien rajat näkyvät vahvistettuna.
-- Ruudukkoon voi lisätä numeroita.
+Perjantaina, eli tänään, olen ruvennut ohjelmoimaan logiikkaa. Logiikka ei ole vielä millään tavalla yhdistettynä käliin. Toimintaa voi kuitenkin tarkastaa testeillä. Tällä hetkellä Sekä Sudoku- että SudokuExaminer -luokka (ainoat merkittävää koodia sisältävät luokat) ovat jotakuinkin 100% testattuja. Testikoodia onkin kertynyt jo usempi sata riviä.
 
-Tämän alustavan kälin lisäksi on tavoitteena ohjelmoida ohjelman runkoa hieman, kuten esimerkiksi sen lisäksi, että ruudukkoon piirtyy numeroita, tulisi ohjelman olla tietoinen numeroista. Sen kannattaisi myös olla tietoinen onko peli läpäistyssä tilassa vai ei.
+Tällä viikolla olen oppinut runsaasti JavaFX:stä. Sukellukseni IntelliJ:n Gradle -tuen ihmeelliseen maailmaan on myös syventynyt. Niin kuin varmaan aina, itse koodaaminen oli harmittomin osuus. Vaikka sudokun tarkastaminen sen oikeellisuuden suhteen ei olekaan monimutkaista, yllätyin siitä miten vaivattomasti se meni, kun olin jäsennellyt ongelman huolellisesti etukäteen. Epäselväksi on tässä vaiheessa jäänyt ainoastaan, pyöriikö projektini mutkattomasti muilla koneilla. Mutta se on sitten toisen päivän pettymys.
+
+Seuraavaksi jatkanen ydinlogiikkaa ja kälin toimivuuden parantamista. Tällä hetkellä se kun on kovin hyödytön itse sovelluksen kannalta. En pidä myöskään mahdottomuutena, että ensi viikolla pääsisin vähintään aloittamaan ensimmäisen ratkaisualgoritmin toteuttamista.
+
+Aikaa tällä viikolla on tullut kulutettua noin 12 tuntia. 6 tuntia käyttöliittymään (JavaFX:n dokumentaation lukemista, kälin kirjoittamista trial-and-error-tyyliin)ja 6 tuntia loppusovellukseen (sovelluslogiikan ohjelmoiminen, testaus, dokumentaatio).

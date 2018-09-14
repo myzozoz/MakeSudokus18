@@ -52,6 +52,17 @@ public class SudokuExaminerTest {
             {8,8,8,8,8,8,8,8,8},
             {9,9,9,9,9,9,9,9,9}
     };
+    int[][] EXAMPLE_SUDOKU_ONLY_CELLS_INCORRECT = {
+            {1,2,3,4,5,6,7,8,9},
+            {2,3,4,5,6,7,8,9,1},
+            {3,4,5,6,7,8,9,1,2},
+            {4,5,6,7,8,9,1,2,3},
+            {5,6,7,8,9,1,2,3,4},
+            {6,7,8,9,1,2,3,4,5},
+            {7,8,9,1,2,3,4,5,6},
+            {8,9,1,2,3,4,5,6,7},
+            {9,1,2,3,4,5,6,7,8}
+    };
     int[][] EXAMPLE_SUDOKU_ONLY_CELLS_CORRECT = {
             {1,2,3,1,2,3,1,2,3},
             {4,5,6,4,5,6,4,5,6},
@@ -146,12 +157,13 @@ public class SudokuExaminerTest {
     public void checkSolutionFindsCorrectSudoku() {
         assertTrue(se.checkSolution(EXAMPLE_SUDOKU_SOLVED));
     }
-
+    
     @Test
     public void checkSolutionFindsIncorrectSudoku() {
         assertFalse(se.checkSolution(EXAMPLE_SUDOKU_UNSOLVED));
         assertFalse(se.checkSolution(EXAMPLE_SUDOKU_ONLY_ROWS_CORRECT));
         assertFalse(se.checkSolution(EXAMPLE_SUDOKU_ONLY_COLUMNS_CORRECT));
         assertFalse(se.checkSolution(EXAMPLE_SUDOKU_ONLY_CELLS_CORRECT));
+        assertFalse(se.checkSolution(EXAMPLE_SUDOKU_ONLY_CELLS_INCORRECT));
     }
 }

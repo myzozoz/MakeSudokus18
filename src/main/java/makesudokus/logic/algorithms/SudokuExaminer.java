@@ -1,7 +1,21 @@
 package makesudokus.logic.algorithms;
 
-
+/**
+ * A class dedicated for testing whether a sudoku is solved or not.
+ */
 public class SudokuExaminer {
+    /**
+     * <p>This is the master method, acting as a coordinator for the lower-level methods.</p>
+     *
+     * A sudoku is solved, when the following conditions are met:
+     * <ul>
+     * <li>Every row contains every number from 1 to 9 exactly once</li>
+     * <li>Every column contains every number from 1 to 9 exactly once</li>
+     * <li>Every 3x3 cell contains every number from 1 to 9 exactly once</li>
+     * </ul>
+     * @param sudokuContents The contents of a sudoku in a two-dimensional array.
+     * @return Returns true if the sudoku is solved, othewise returns false.
+     */
     public static boolean checkSolution(int[][] sudokuContents) {
         //A sudoku is solved, when the following conditions are met:
         //-Every row contains every number from 1 to 9 exactly once
@@ -10,13 +24,18 @@ public class SudokuExaminer {
         //-Every column contains every number from 1 to 9 exactly once
         if (!checkColumns(sudokuContents))
             return false;
-        //-Evey 3x3 cell contains every number from 1 to 9 exactly once
+        //-Every 3x3 cell contains every number from 1 to 9 exactly once
         if (!checkCells(sudokuContents))
             return false;
 
         return true;
     }
 
+    /**
+     * Checks if the rows are correct in a sudoku.
+     * @param sudokuContents The contents of a sudoku in a two-dimensional array.
+     * @return Returns true if the rows are correct.
+     */
     public static boolean checkRows(int[][] sudokuContents) {
         for (int y = 0; y < 9; y++) {
             if (!checkNumberSet(sudokuContents[y]))
@@ -25,6 +44,11 @@ public class SudokuExaminer {
         return true;
     }
 
+    /**
+     * Checks if the columns are correct in a sudoku.
+     * @param sudokuContents The contents of a sudoku in a two-dimensional array.
+     * @return Returns true if the columns are correct.
+     */
     public static boolean checkColumns(int[][] sudokuContents) {
         for (int x = 0; x < 9; x++) {
             int[] numSet = new int[9];
@@ -37,6 +61,11 @@ public class SudokuExaminer {
         return true;
     }
 
+    /**
+     * Checks if the cells are correct in a sudoku.
+     * @param sudokuContents The contents of a sudoku in a two-dimensional array.
+     * @return Returns true if the columns are correct.
+     */
     public static boolean checkCells(int[][] sudokuContents) {
         //First we create a nested loop that cycles through all the 3x3 cells
         for (int cellRow = 0; cellRow < 3; cellRow++) {
@@ -58,6 +87,12 @@ public class SudokuExaminer {
         return true;
     }
 
+    /**
+     * An assisting function, dedicated to check arrays of exactly 9 integers.
+     * The method checks the contents for uniqueness and size.
+     * @param numberSet A set of 9 integers.
+     * @return Returns true if there are exactly 9 unique integers, the numbers from 1 to 9.
+     */
     public static boolean checkNumberSet(int[] numberSet) {
         //Check to see that the numberSet is legal
         if( numberSet.length != 9) {

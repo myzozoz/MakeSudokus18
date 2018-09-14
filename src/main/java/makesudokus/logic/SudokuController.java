@@ -2,6 +2,10 @@ package makesudokus.logic;
 
 import makesudokus.logic.algorithms.SudokuExaminer;
 
+/**
+ * This class acts as the main controller for the application logic. It contains the sudoku, (later on) passes data
+ * to the GUI and invokes the solving algorithms. For now it doesn't do anything.
+ */
 public class SudokuController {
     private Sudoku sudoku;
     private boolean solved;
@@ -29,16 +33,30 @@ public class SudokuController {
             {4,9,1,2,6,8,5,3,7}
     };
 
+    /**
+     * Constructor, initializes a test sudoku.
+     */
     public SudokuController() {
         this.sudoku = new Sudoku();
         //We initialize the sudoku here for the time being
         this.sudoku.setContent(EXAMPLE_SUDOKU_EASY);
     }
 
+    /**
+     * An API method for the GUI.
+     * @return Returns the sudokus contents.
+     */
     public int[][] getSudoku() {
         return this.sudoku.getContent();
     }
 
+    /**
+     * An API method for the GUI. Invokes the setNumber(int x, int y, int newNumber) of the Sudoku object.
+     * @param x -axis coordinate.
+     * @param y y -axis coordinate.
+     * @param newNumber New number to be placed in the slot.
+     * @return Returns true for successful operation and false for unsuccessful.
+     */
     public boolean updateNumber(int x, int y, int newNumber) {
         if(this.sudoku.setNumber(x,y,newNumber)) {
             this.solved = SudokuExaminer.checkSolution(this.sudoku.getContent());
@@ -47,6 +65,9 @@ public class SudokuController {
         return false;
     }
 
+    /**
+     * @return Returns the solved state of the sudoku.
+     */
     public boolean isSolved() {
         return this.solved;
     }
