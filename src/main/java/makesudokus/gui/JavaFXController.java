@@ -51,7 +51,7 @@ public class JavaFXController extends Application {
             grid.getRowConstraints().add(rowConstraints);
             for (int x = 0; x < 9; x++) {
                 String number= "";
-                if (EXAMPLE_SUDOKU_EASY[y][x] != 0) {
+                if (EXAMPLE_SUDOKU_EASY[y][x] > 0 && EXAMPLE_SUDOKU_EASY[y][x] < 10) {
                     number = Integer.toString(EXAMPLE_SUDOKU_EASY[y][x]);
                 } else {
 
