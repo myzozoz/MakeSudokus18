@@ -3,9 +3,13 @@ plugins {
     id 'idea'
 }
 
+apply plugin: 'application'
+
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+
+mainClassName = 'makesudokus.domain.Main'
 
 repositories {
     mavenCentral()

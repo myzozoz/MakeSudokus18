@@ -60,9 +60,18 @@ public class SudokuController {
     public boolean updateNumber(int x, int y, int newNumber) {
         if(this.sudoku.setNumber(x,y,newNumber)) {
             this.solved = SudokuExaminer.checkSolution(this.sudoku.getContent());
+            if (this.solved) {
+                System.out.println(sudoku);
+                System.out.println("Congrats, you're a winner!");
+            }
             return true;
         }
         return false;
+    }
+
+
+    public int getNumber(int x, int y) {
+        return this.sudoku.getNumber(x,y);
     }
 
     /**

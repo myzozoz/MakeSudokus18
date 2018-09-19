@@ -12,23 +12,17 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.stage.Stage;
+import makesudokus.logic.SudokuController;
+
+import java.util.HashMap;
 
 
 /**
  * The main (and currently only) GUI class. For now.
  */
 public class JavaFXController extends Application {
-    private final int[][] EXAMPLE_SUDOKU_EASY = {
-            {0,0,0,8,9,0,0,0,4},
-            {9,8,5,1,3,4,6,2,0},
-            {0,7,4,0,0,0,0,1,9},
-            {0,0,0,4,1,9,0,5,2},
-            {0,0,9,7,6,5,1,0,0},
-            {7,5,1,0,8,3,0,0,6},
-            {0,1,7,0,0,0,3,6,0},
-            {6,9,0,5,0,1,2,4,0},
-            {5,4,0,3,0,0,0,0,0},
-    };
+    private SudokuController sudokuController;
+    private HashMap<String, int[]> buttonMap;
     private final int SCREEN_WIDTH = 900;
     private final int SCREEN_HEIGHT = 900;
 
@@ -39,6 +33,8 @@ public class JavaFXController extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
+        sudokuController = new SudokuController();
+        buttonMap = new HashMap<>();
         System.out.println("Starting application");
 
         GridPane grid = new GridPane();
@@ -53,19 +49,39 @@ public class JavaFXController extends Application {
         RowConstraints rowConstraints = new RowConstraints();
         rowConstraints.setPercentHeight(100/9);
         rowConstraints.setValignment(VPos.CENTER);
+
+        int[][] sudoku = sudokuController.getSudoku();
+
+        //For each cell in the grid, create a new button.
         for (int y = 0; y < 9; y++){
+
             grid.getColumnConstraints().add(colConstraint);
             grid.getRowConstraints().add(rowConstraints);
+
             for (int x = 0; x < 9; x++) {
                 String number= "";
-                if (EXAMPLE_SUDOKU_EASY[y][x] > 0 && EXAMPLE_SUDOKU_EASY[y][x] < 10) {
-                    number = Integer.toString(EXAMPLE_SUDOKU_EASY[y][x]);
+                if (sudoku[y][x] > 0 && sudoku[y][x] < 10) {
+                    number = Integer.toString(sudoku[y][x]);
                 } else {
-
                 }
                 Button button = new Button(number);
+                button.setId("x" + x + "y" + y);
+                int[] coordinates = {x,y};
+                buttonMap.put(button.getId(), coordinates);
 
-                button.setOnAction((ActionEvent e) -> button.setText("C"));
+                //Handler function to update the cell.
+                button.setOnAction((ActionEvent e) -> {
+                    int[] buttonCoordinates = buttonMap.get(button.getId());
+                    int currentNumber = sudokuController.getNumber(buttonCoordinates[0], buttonCoordinates[1]);
+
+                    int newNumber = currentNumber + 1;
+                    if (newNumber > 9) {
+                        newNumber = 1;
+                    }
+
+                    sudokuController.updateNumber(buttonCoordinates[0],buttonCoordinates[1], newNumber);
+                    button.setText(Integer.toString(newNumber));
+                });
 
                 button.setStyle("-fx-background-color: darkslategrey; " +
                         "-fx-font-size: 26px;" +

@@ -157,7 +157,7 @@ public class SudokuExaminerTest {
     public void checkSolutionFindsCorrectSudoku() {
         assertTrue(se.checkSolution(EXAMPLE_SUDOKU_SOLVED));
     }
-    
+
     @Test
     public void checkSolutionFindsIncorrectSudoku() {
         assertFalse(se.checkSolution(EXAMPLE_SUDOKU_UNSOLVED));
