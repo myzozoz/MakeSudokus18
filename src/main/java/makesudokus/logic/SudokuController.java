@@ -21,8 +21,8 @@ public class SudokuController {
             {6,9,0,5,0,1,2,4,0},
             {5,4,0,3,0,0,0,0,0}
     };
-    private final int[][] EXAMPLE_SUDOKU_SOLVED = {
-            {6,3,9,5,1,4,7,8,2},
+    private final int[][] EXAMPLE_SUDOKU_ALMOST_SOLVED = {
+            {0,3,9,5,1,4,7,8,2},
             {8,5,7,3,2,9,6,1,4},
             {2,1,4,7,8,6,3,5,9},
             {1,8,2,6,4,3,9,7,5},
@@ -59,7 +59,10 @@ public class SudokuController {
      */
     public boolean updateNumber(int x, int y, int newNumber) {
         if(this.sudoku.setNumber(x,y,newNumber)) {
-            this.solved = SudokuExaminer.checkSolution(this.sudoku.getContent());
+            if(!SudokuExaminer.legal(this.sudoku.getContent())) {
+                System.out.println("Number not legal");
+            }
+            this.solved = SudokuExaminer.checkForWinner(this.sudoku.getContent());
             if (this.solved) {
                 System.out.println(sudoku);
                 System.out.println("Congrats, you're a winner!");
@@ -82,4 +85,7 @@ public class SudokuController {
     }
 
 
+    public void solve() {
+        System.out.println(this.sudoku);
+    }
 }

@@ -47,7 +47,7 @@ public class JavaFXController extends Application {
         colConstraint.setPercentWidth(100/9);
         colConstraint.setHalignment(HPos.CENTER);
         RowConstraints rowConstraints = new RowConstraints();
-        rowConstraints.setPercentHeight(100/9);
+        rowConstraints.setPercentHeight(10);
         rowConstraints.setValignment(VPos.CENTER);
 
         int[][] sudoku = sudokuController.getSudoku();
@@ -59,15 +59,13 @@ public class JavaFXController extends Application {
             grid.getRowConstraints().add(rowConstraints);
 
             for (int x = 0; x < 9; x++) {
-                String number= "";
-                if (sudoku[y][x] > 0 && sudoku[y][x] < 10) {
-                    number = Integer.toString(sudoku[y][x]);
-                } else {
-                }
+                String number = sudoku[y][x] == 0 ? "" : Integer.toString(sudoku[y][x]);
+                
                 Button button = new Button(number);
                 button.setId("x" + x + "y" + y);
                 int[] coordinates = {x,y};
                 buttonMap.put(button.getId(), coordinates);
+                //
 
                 //Handler function to update the cell.
                 button.setOnAction((ActionEvent e) -> {
@@ -76,11 +74,12 @@ public class JavaFXController extends Application {
 
                     int newNumber = currentNumber + 1;
                     if (newNumber > 9) {
-                        newNumber = 1;
+                        newNumber = 0;
                     }
 
                     sudokuController.updateNumber(buttonCoordinates[0],buttonCoordinates[1], newNumber);
-                    button.setText(Integer.toString(newNumber));
+                    String newButtonText = newNumber == 0 ? "" : Integer.toString(newNumber);
+                    button.setText(newButtonText);
                 });
 
                 button.setStyle("-fx-background-color: darkslategrey; " +
@@ -93,8 +92,17 @@ public class JavaFXController extends Application {
                 button.setAlignment(Pos.CENTER);
 
                 grid.add(button,x ,y);
+
             }
         }
+
+        Button solveButton = new Button("Solve!");
+        solveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        solveButton.setStyle("-fx-background-color: crimson;" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center");
+        solveButton.setOnAction((ActionEvent e) -> sudokuController.solve());
+        grid.add(solveButton,0,9,9,1);
 
         grid.setMinSize(300,300);
         grid.setStyle("-fx-background-color: darkorange;" +
