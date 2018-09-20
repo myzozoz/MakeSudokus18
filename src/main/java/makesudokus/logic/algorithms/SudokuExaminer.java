@@ -225,4 +225,34 @@ public class SudokuExaminer {
 
         return true;
     }
+
+    /**
+     * Finds the next empty cell in the sudoku. 'Next' is determined by first row, then column.
+     * Note: If you want to find the first unknown in the entire sudoku, set the parameter y
+     * to a negative number.
+     * @param sudokuContents Contents of a sudoku.
+     * @param x We are looking for the next unknown cell after x
+     * @param y We are looking for the next unknown cell after y
+     * @return Returns an array of two integers, the x and y values of the next unknown cell.
+     */
+    public static int[] findNextUnknown(int[][] sudokuContents, int x, int y) {
+        int[] coords = new int[2];
+        for (int _y = 0; _y < sudokuContents.length; _y++) {
+            for (int _x = 0; _x < sudokuContents[_y].length; _x++) {
+                if (sudokuContents[_y][_x] == 0) {
+                    if (_y == y && _x > x) { //if it's on the same row, but further down, it's the next one
+                        coords[0] = _x;
+                        coords[1] = _y;
+                        return coords;
+                    } else if (_y > y) { //if it's on a later row, it's the next one
+                        coords[0] = _x;
+                        coords[1] = _y;
+                        return coords;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
 }

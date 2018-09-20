@@ -3,8 +3,7 @@ package makesudokus.logic.algorithms;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class SudokuExaminerTest {
     SudokuExaminer se;
@@ -29,6 +28,28 @@ public class SudokuExaminerTest {
             {7, 6, 8, 9, 3, 5, 2, 4, 1},
             {5, 2, 3, 4, 7, 1, 8, 9, 6},
             {4, 9, 1, 2, 6, 8, 5, 3, 7}
+    };
+    private final int[][] EXAMPLE_SUDOKU_ALMOST_SOLVED = {
+            {0,3,9,5,1,4,7,8,2},
+            {8,5,7,3,2,9,6,1,4},
+            {2,1,4,7,8,6,3,5,9},
+            {1,8,2,6,4,3,9,7,5},
+            {3,7,5,1,9,2,4,6,8},
+            {9,4,6,8,5,7,1,2,3},
+            {7,6,8,9,3,5,2,4,1},
+            {5,2,3,4,7,1,8,9,6},
+            {4,9,1,2,6,8,5,3,7}
+    };
+    private final int[][] EXAMPLE_SUDOKU_ALMOST_SOLVED_ILLEGAL = {
+            {1,3,9,5,1,4,7,8,2},
+            {8,5,7,3,2,9,6,1,4},
+            {2,1,4,7,8,6,3,5,9},
+            {1,8,2,6,4,3,9,7,5},
+            {3,7,5,1,9,2,4,6,8},
+            {9,4,6,8,5,7,1,2,3},
+            {7,6,8,9,3,5,2,4,1},
+            {5,2,3,4,7,1,8,9,6},
+            {4,9,1,2,6,8,5,3,7}
     };
     int[][] EXAMPLE_SUDOKU_ONLY_ROWS_CORRECT = {
             {1, 2, 3, 4, 5, 6, 7, 8, 9},
@@ -235,6 +256,7 @@ public class SudokuExaminerTest {
     public void legalityTestReturnsTrueOnLegalSudokus() {
         assertTrue(se.legal(EXAMPLE_SUDOKU_SOLVED));
         assertTrue(se.legal(EXAMPLE_SUDOKU_UNSOLVED));
+        assertTrue(se.legal(EXAMPLE_SUDOKU_ALMOST_SOLVED));
     }
 
     @Test
@@ -243,5 +265,25 @@ public class SudokuExaminerTest {
         assertFalse(se.legal(EXAMPLE_SUDOKU_ONLY_COLUMNS_CORRECT));
         assertFalse(se.legal(EXAMPLE_SUDOKU_ONLY_CELLS_CORRECT));
         assertFalse(se.legal(EXAMPLE_SUDOKU_ONLY_CELLS_INCORRECT));
+        assertFalse(se.legal(EXAMPLE_SUDOKU_ALMOST_SOLVED_ILLEGAL));
+    }
+
+    @Test
+    public void findsFirstUnknown() {
+        assertArrayEquals(new int[]{0,0},se.findNextUnknown(EXAMPLE_SUDOKU_UNSOLVED, -1, -1));
+        assertArrayEquals(new int[]{0,0},se.findNextUnknown(EXAMPLE_SUDOKU_UNSOLVED, 100, -1));
+    }
+
+    @Test
+    public void findsNextUnknown() {
+        assertArrayEquals(new int[]{2, 0},se.findNextUnknown(EXAMPLE_SUDOKU_UNSOLVED, 1, 0));
+        assertArrayEquals(new int[]{5,0},se.findNextUnknown(EXAMPLE_SUDOKU_UNSOLVED, 2, 0));
+        assertArrayEquals(new int[]{8,1},se.findNextUnknown(EXAMPLE_SUDOKU_UNSOLVED, 7, 0));
+    }
+
+    @Test
+    public void nextUnknownIsNullWhenNoMoreUnknown() {
+        assertNull(se.findNextUnknown(EXAMPLE_SUDOKU_SOLVED, 0 ,0));
+        assertNull(se.findNextUnknown(EXAMPLE_SUDOKU_UNSOLVED, 8 ,8));
     }
 }

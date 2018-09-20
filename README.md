@@ -7,6 +7,7 @@ Tiralabran projekti. Sudokujen ratkontatyökalu.
 #### Viikkoraportit
 - [Viikkoraportti 1](/documentation/viikkoraportti1.md)
 - [Viikkoraportti 2](/documentation/viikkoraportti2.md)
+- [Viikkoraportti 3](/documentation/viikkoraportti3.md)
 
 #### Muuta kivaa
-JavaDoc generoidaan ajamalla komento `gradle javadoc`.
+JavaDoc generoidaan ajamalla komento `gradle javadoc` projektin juurihakemistossa.

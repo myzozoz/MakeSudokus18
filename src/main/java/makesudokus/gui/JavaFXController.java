@@ -60,7 +60,7 @@ public class JavaFXController extends Application {
 
             for (int x = 0; x < 9; x++) {
                 String number = sudoku[y][x] == 0 ? "" : Integer.toString(sudoku[y][x]);
-                
+
                 Button button = new Button(number);
                 button.setId("x" + x + "y" + y);
                 int[] coordinates = {x,y};
