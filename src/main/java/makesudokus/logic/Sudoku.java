@@ -39,7 +39,7 @@ public class Sudoku {
      * if the newNumber is out of the 1-9 range and if the coordinates are outside of the 0-8 range.
      */
     public boolean setNumber(int x, int y, int newNumber) {
-        if (newNumber >= 1 && newNumber <= 9 &&
+        if (newNumber >= 0 && newNumber <= 9 &&
         x >= 0 && x <= 8 &&
         y >= 0 && y <= 8) {
             content[y][x] = newNumber;

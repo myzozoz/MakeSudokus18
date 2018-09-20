@@ -73,9 +73,6 @@ public class SudokuController {
      */
     public boolean updateNumber(int x, int y, int newNumber) {
         if(this.sudoku.setNumber(x,y,newNumber)) {
-            if(!SudokuExaminer.legal(this.sudoku.getContent())) {
-                System.out.println("Number not legal");
-            }
             this.solved = SudokuExaminer.checkForWinner(this.sudoku.getContent());
             if (this.solved) {
                 System.out.println(sudoku);
@@ -99,7 +96,7 @@ public class SudokuController {
     }
 
 
-    public void solve() {
-        backtracker.solve();
+    public boolean solve() {
+        return backtracker.solve();
     }
 }

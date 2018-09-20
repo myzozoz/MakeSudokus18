@@ -52,6 +52,7 @@ public class JavaFXController extends Application {
 
         int[][] sudoku = sudokuController.getSudoku();
 
+
         //For each cell in the grid, create a new button.
         for (int y = 0; y < 9; y++){
 
@@ -66,21 +67,29 @@ public class JavaFXController extends Application {
                 int[] coordinates = {x,y};
                 buttonMap.put(button.getId(), coordinates);
                 //
-
-                //Handler function to update the cell.
-                button.setOnAction((ActionEvent e) -> {
-                    int[] buttonCoordinates = buttonMap.get(button.getId());
-                    int currentNumber = sudokuController.getNumber(buttonCoordinates[0], buttonCoordinates[1]);
-
-                    int newNumber = currentNumber + 1;
-                    if (newNumber > 9) {
-                        newNumber = 0;
+                button.addEventHandler(RefreshCellsEvent.REFRESH_CELLS_EVENT_TYPE, new RefreshCellsHandler() {
+                    @Override
+                    public void onEvent() {
+                        System.out.println(button.getId());
                     }
-
-                    sudokuController.updateNumber(buttonCoordinates[0],buttonCoordinates[1], newNumber);
-                    String newButtonText = newNumber == 0 ? "" : Integer.toString(newNumber);
-                    button.setText(newButtonText);
                 });
+
+                //Handler function to update the button/cell. Only apply if it started out as an empty cell.
+                if (number == "") {
+                    button.setOnAction((ActionEvent e) -> {
+                        int[] buttonCoordinates = buttonMap.get(button.getId());
+                        int currentNumber = sudokuController.getNumber(buttonCoordinates[0], buttonCoordinates[1]);
+
+                        int newNumber = currentNumber + 1;
+                        if (newNumber > 9) {
+                            newNumber = 0;
+                        }
+
+                        sudokuController.updateNumber(buttonCoordinates[0], buttonCoordinates[1], newNumber);
+                        String newButtonText = newNumber == 0 ? "" : Integer.toString(newNumber);
+                        button.setText(newButtonText);
+                    });
+                }
 
                 button.setStyle("-fx-background-color: darkslategrey; " +
                         "-fx-font-size: 26px;" +
@@ -96,18 +105,32 @@ public class JavaFXController extends Application {
             }
         }
 
+        //Creating the "Solve" button
         Button solveButton = new Button("Solve!");
         solveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
         solveButton.setStyle("-fx-background-color: crimson;" +
                 "-fx-font-size: 40px;" +
                 "-fx-alignment: center");
-        solveButton.setOnAction((ActionEvent e) -> sudokuController.solve());
         grid.add(solveButton,0,9,9,1);
+        //Solve Button event handler
+        solveButton.setOnAction((ActionEvent e) -> {
+            if (sudokuController.solve()) {
+                solveButton.setText("Solved!");
+                solveButton.setStyle("-fx-background-color: lime;" +
+                        "-fx-font-size: 40px;");
+            }
+            System.out.println("Going to fire the event!");
+            solveButton.fireEvent(new RefreshCellsEvent());
 
+        });
+
+        //Setting grid layout options
         grid.setMinSize(300,300);
         grid.setStyle("-fx-background-color: darkorange;" +
                 "-fx-grid-lines-visible: true;" +
                 "-fx-alignment: center");
+
+        //Create the scene
         Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
 
         ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
@@ -124,5 +147,5 @@ public class JavaFXController extends Application {
     }
 
 
-
 }
+

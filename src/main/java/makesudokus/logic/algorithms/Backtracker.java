@@ -22,13 +22,15 @@ public class Backtracker implements Solver {
      * A master function for the Backtracer class. First copies a working content table from the
      * sudoku. Then solves the sudoku and times it.
      */
-    public void solve() {
+    public boolean solve() {
         this.solvedContent = sudoku.getContent().clone();
         long sysTimeStart = System.currentTimeMillis();
         int[] firstUnknown = SudokuExaminer.findNextUnknown(solvedContent, -1,-1);
         if (firstUnknown != null && solveNumber(firstUnknown[0], firstUnknown[1])) {
             System.out.println("Solved in " + (System.currentTimeMillis() - sysTimeStart) + "ms");
+            return true;
         }
+        return false;
     }
 
     /**
