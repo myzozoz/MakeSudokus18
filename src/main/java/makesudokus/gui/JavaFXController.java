@@ -66,13 +66,6 @@ public class JavaFXController extends Application {
                 button.setId("x" + x + "y" + y);
                 int[] coordinates = {x,y};
                 buttonMap.put(button.getId(), coordinates);
-                //
-                button.addEventHandler(RefreshCellsEvent.REFRESH_CELLS_EVENT_TYPE, new RefreshCellsHandler() {
-                    @Override
-                    public void onEvent() {
-                        System.out.println(button.getId());
-                    }
-                });
 
                 //Handler function to update the button/cell. Only apply if it started out as an empty cell.
                 if (number == "") {
@@ -119,9 +112,6 @@ public class JavaFXController extends Application {
                 solveButton.setStyle("-fx-background-color: lime;" +
                         "-fx-font-size: 40px;");
             }
-            System.out.println("Going to fire the event!");
-            solveButton.fireEvent(new RefreshCellsEvent());
-
         });
 
         //Setting grid layout options

@@ -15,6 +15,14 @@ Vähän ikävästi jäi suurin osa työstä tälle päivälle. Saa nähdä jatka
 
 Kaikenkaikkiaan olen tyytyväinen tällä viikolla tapahtuneeseen edistykseen. Ohjelma ratkoo nyt vähintään jollain tapaa sudokuja, joten omalla tavalla ollaan saavutettu MVP. Tästä mennään enää ylöspäin. Seuraavalla viikolla yritän saavuttaa samanlaisen tasapainon ajankäytön suhteen: n. 1/4 ajasta käyttöliittymään ja sovelluksen käytettävyyteen ja loput ajasta sovelluksen logiikkaan.
 
+21.9.2018
+TESTAUKSESTA: Heräsin tänään inspiraatio sielussani ja ajattelin "perhana, mähän kohennan vähän vielä testikattavuutta". Pikaisen tarkastelun jälkeen järkeviä yksikkötestejä ei kuitenkaan ole enää jäljellä. Uusi luokka Backtracker on hieman vaikeasti testattavissa, sillä ainoa oikeata logiikkaa suorittava metodi on rekursiivinen ja ratkoo koko sudokun. Kyseessä olisi siis ennemminkin integraatiotasion testuaksesta. Sen liäksi ratkova metodi on private, jolloin testauksesta tulee vähemmän suoraviivaista.
+
+Tämän jälkeen jäljellä on enää GUI, jonka yksikkötestauksesta on risteäviä mielipiteitä ja SudokuController. SudokuControllerin jokainen metodi on äärimmäisen simppeli ja luokka toimiikin laajalti pass-through-luokkana. Ehkä testaan sitten enemmän ensi viikolla. Sanottakoon kuitenkin, että luokan SudokuExaminer kaikkia uusia metodeja varten on kirjoitettu kattavat yksikkötestit.
+
+Siistin myös hieman koodia. aikaa kului n. 20 min.
+
+
 
 
 [sudoku_cheat]: ./pictures/sudoku_test.jpg
