@@ -50,6 +50,28 @@ public class SudokuController {
             {5,2,3,4,7,1,8,9,6},
             {4,9,1,2,6,8,5,3,7}
     };
+    private final int[][] EXAMPLE_SUDOKU_EXTREME_1 = {
+            {0,9,2,3,0,0,4,0,0},
+            {0,0,0,0,0,0,0,5,0},
+            {6,0,7,2,0,0,0,0,0},
+            {0,0,1,0,3,0,0,0,0},
+            {0,7,0,0,0,9,5,0,2},
+            {0,0,6,0,0,0,3,1,0},
+            {0,1,0,0,0,7,0,0,6},
+            {0,0,0,0,4,2,0,0,0},
+            {0,0,0,0,0,0,0,8,0}
+    };
+    private final int[][] EXAMPLE_SUDOKU_EXTREME_2 = {
+            {0,0,0,7,0,0,3,5,0},
+            {0,0,0,8,0,0,6,0,0},
+            {0,3,0,0,0,2,0,0,9},
+            {9,4,0,0,0,0,0,2,6},
+            {0,7,0,0,0,6,0,0,0},
+            {1,0,0,9,0,8,4,0,0},
+            {0,0,6,0,0,3,0,4,0},
+            {0,0,0,4,9,0,0,6,0},
+            {5,0,0,0,2,0,0,9,3}
+    };
 
     /**
      * Constructor, initializes a test sudoku and solver class.
@@ -58,7 +80,7 @@ public class SudokuController {
         this.sudoku = new Sudoku();
         //We initialize the sudoku here for the time being.
         //Comment the following line out if you want to initialize and empty board.
-        this.sudoku.setContent(EXAMPLE_SUDOKU_EASY);
+        this.sudoku.setContent(EXAMPLE_SUDOKU_EXTREME_2);
         this.initializeBackup();
         this.backtracker = new Backtracker(this.sudoku);
         this.crookSolver = new CrookSolver(this.sudoku);

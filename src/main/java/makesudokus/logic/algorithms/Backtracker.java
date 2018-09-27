@@ -17,7 +17,6 @@ public class Backtracker implements Solver {
      */
     public Backtracker(Sudoku sudoku) {
         this.sudoku = sudoku;
-        iterationCount = 0;
     }
 
     /**
@@ -25,6 +24,7 @@ public class Backtracker implements Solver {
      * sudoku. Then solves the sudoku and times it.
      */
     public boolean solve() {
+        this.iterationCount = 0;
         this.solvedContent = sudoku.getContent().clone();
         long sysTimeStart = System.currentTimeMillis();
         int[] firstUnknown = SudokuExaminer.findNextUnknown(solvedContent, -1,-1);
