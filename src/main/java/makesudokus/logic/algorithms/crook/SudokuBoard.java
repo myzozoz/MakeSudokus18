@@ -28,11 +28,15 @@ public class SudokuBoard {
     private void initializeCells(int[][] sudokuContent) {
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
-                cells[y][x] = new Cell(x, y, sudokuContent[y][x]);
+                cells[y][x] = new Cell(sudokuContent[y][x]);
             }
         }
     }
 
+    /**
+     * Does the first pass on the markups. Markups are initialized with all true for unknown cells
+     * and all false for known cells.
+     */
     private void initializeMarkups() {
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
@@ -108,6 +112,10 @@ public class SudokuBoard {
         return boardArray;
     }
 
+    /**
+     * This is a helper method for testing the markup logic.
+     * @return Returns all markups as a single string.
+     */
     public String getAllMarkups() {
         String s = "";
         for (int y = 0; y < 9; y++) {
@@ -120,10 +128,21 @@ public class SudokuBoard {
         return s;
     }
 
+    /**
+     * <p>Finds singletons. Turns them into known cells.</p>
+     *
+     * There are two types of singletons. The checkSingletons() method is responsible for calling
+     * the different types of checks.
+     */
     public void checkSingletons() {
         checkSingletonsSingleMarkup();
     }
 
+    /**
+     * This method finds cases, where all other digits have been excluded from a cell, then
+     * places the last available digit as the primary digit for the cell, changing its
+     * status to "known".
+     */
     private void checkSingletonsSingleMarkup() {
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {

@@ -1,30 +1,26 @@
 package makesudokus.logic.algorithms.crook;
 
 /** <p>A data container class for a single Sudoku Cell used by the Crook's algorithm solver.</p>
- *  Has private variables for coordinates and markups and
+ *  Has private variables for  markups and
  *  is aware whether or not the number it contains is known or not
  */
 public class Cell {
-    private int x;
-    private int y;
     private boolean known;
     private int digit;
     private boolean[] markups;
 
     /**
-     * <p>Constructor for the data structure.</p>
+     * <p>Constructor for the Cell data structure.</p>
      * The digit parameter dictates, whether or not the number in the cell is known when
      * the Cell object is created. Then sets the boolean "known" accordingly. 1-9 means
      * the number is known and 0 means unknown.
-     * @param x x axis location
-     * @param y y axis location
      * @param digit The known initial digit of the cell. 0 if unknown.
      */
-    public Cell(int x, int y, int digit) {
-        this.x = x;
-        this.y = y;
+    public Cell(int digit) {
         this.markups = new boolean[9];
         this.digit = digit;
+        //We abuse Java's feature to initialize boolean lists to false by default,
+        //only the true values have to be manually set.
         if (digit == 0) {
             this.known = false;
             this.generateMarkups();
@@ -67,13 +63,8 @@ public class Cell {
     }
 
     /**
-     * Getter for the markups.
-     * @return Returns markups as list of booleans.
+     * @return Returns the marked up digits
      */
-    public boolean[] getMarkups() {
-        return this.markups;
-    }
-
     public int[] getMarkupDigits() {
         int[] markupDigits = new int[this.countMarkups()];
         int markupDigitsIterator = 0;
@@ -100,8 +91,12 @@ public class Cell {
      */
     public void setDigit(int newDigit) {
         this.digit = newDigit;
+        this.known = true;
     }
 
+    /**
+     * @return Returns the known status of the cell
+     */
     public boolean isKnown() {
         return this.known;
     }

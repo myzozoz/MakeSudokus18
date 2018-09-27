@@ -7,8 +7,8 @@ import makesudokus.logic.algorithms.crook.CrookSolver;
 import java.util.Arrays;
 
 /**
- * This class acts as the main controller for the application logic. It contains the sudoku, (later on) passes data
- * to the GUI and invokes the solving algorithms. For now it doesn't do anything.
+ * This class acts as the main controller for the application logic. It contains the sudoku, passes data
+ * to the GUI and invokes the solving algorithms.
  */
 public class SudokuController {
     private Sudoku sudoku;
@@ -58,7 +58,7 @@ public class SudokuController {
         this.sudoku = new Sudoku();
         //We initialize the sudoku here for the time being.
         //Comment the following line out if you want to initialize and empty board.
-        this.sudoku.setContent(EXAMPLE_SUDOKU_HARD);
+        this.sudoku.setContent(EXAMPLE_SUDOKU_EASY);
         this.initializeBackup();
         this.backtracker = new Backtracker(this.sudoku);
         this.crookSolver = new CrookSolver(this.sudoku);
@@ -92,6 +92,12 @@ public class SudokuController {
     }
 
 
+    /**
+     * Fetches the number of a single cell in the Sudoku.
+     * @param x x axis coordinate of the sudoku.
+     * @param y y axis coordinate of the sudoku.
+     * @return Returns the value in the given coordinates.
+     */
     public int getNumber(int x, int y) {
         return this.sudoku.getNumber(x,y);
     }
@@ -105,7 +111,7 @@ public class SudokuController {
 
 
     /**
-     * Calls the solving algorithms.
+     * Calls the backtracker solving algorithm.
      * @return Returns true if the sudoku is solved.
      */
     public boolean solveWithBacktracker() {
@@ -117,6 +123,10 @@ public class SudokuController {
         return false;
     }
 
+    /**
+     * Calls the solving algorithm based on crook's algorithm
+     * @return Currently returns true if the sudoku is solved
+     */
     public boolean solveWithCrook() {
         this.crookSolver.solve();
         if (SudokuExaminer.checkForWinner(this.sudoku.getContent())) {
@@ -126,6 +136,9 @@ public class SudokuController {
         return false;
     }
 
+    /**
+     * Resets the sudoku to what you started with.
+     */
     public void resetSudoku() {
         this.sudoku.setContent(initialSudoku);
         if (SudokuExaminer.checkForWinner(this.sudoku.getContent())) {
@@ -135,6 +148,10 @@ public class SudokuController {
         }
     }
 
+    /**
+     * Takes a backup of the initial layout of the sudoku board.
+     * Used as a restore point if player wants to start again.
+     */
     private void initializeBackup() {
         initialSudoku = new int[9][9];
         for (int y = 0; y < 9; y++) {

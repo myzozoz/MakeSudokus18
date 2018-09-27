@@ -1,5 +1,7 @@
 package makesudokus.logic;
 
+import java.util.Arrays;
+
 /**
  * A data container class with minor helper functions. Contains the sudoku puzzle.
  */
@@ -27,7 +29,10 @@ public class Sudoku {
      * @param newContent New contents for the sudoku.
      */
     public void setContent(int[][] newContent) {
-        content = newContent;
+        content = new int[9][9];
+        for (int y = 0; y < 9; y++) {
+            content[y] = Arrays.copyOf(newContent[y], 9);
+        }
     }
 
     /**
