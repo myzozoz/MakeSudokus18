@@ -9,6 +9,7 @@ import makesudokus.logic.Sudoku;
 public class Backtracker implements Solver {
     private Sudoku sudoku;
     private int[][] solvedContent;
+    private int iterationCount;
 
     /**
      * The constructor is fed the sudoku to be solved.
@@ -16,6 +17,7 @@ public class Backtracker implements Solver {
      */
     public Backtracker(Sudoku sudoku) {
         this.sudoku = sudoku;
+        iterationCount = 0;
     }
 
     /**
@@ -28,6 +30,7 @@ public class Backtracker implements Solver {
         int[] firstUnknown = SudokuExaminer.findNextUnknown(solvedContent, -1,-1);
         if (firstUnknown != null && solveNumber(firstUnknown[0], firstUnknown[1])) {
             System.out.println("Solved in " + (System.currentTimeMillis() - sysTimeStart) + "ms");
+            System.out.println("With " + this.iterationCount + " calls");
             return true;
         }
         return false;
@@ -39,6 +42,7 @@ public class Backtracker implements Solver {
      * @param y Solve the numbers from y onward.
      */
     private boolean solveNumber(int x, int y) {
+        iterationCount++;
         for (int i = 1; i <= 9; i++) {
             solvedContent[y][x] = i;
             if (SudokuExaminer.legal(solvedContent)) {

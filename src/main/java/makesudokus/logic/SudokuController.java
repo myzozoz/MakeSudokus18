@@ -2,6 +2,9 @@ package makesudokus.logic;
 
 import makesudokus.logic.algorithms.Backtracker;
 import makesudokus.logic.algorithms.SudokuExaminer;
+import makesudokus.logic.algorithms.crook.CrookSolver;
+
+import java.util.Arrays;
 
 /**
  * This class acts as the main controller for the application logic. It contains the sudoku, (later on) passes data
@@ -11,6 +14,8 @@ public class SudokuController {
     private Sudoku sudoku;
     private boolean solved;
     private Backtracker backtracker;
+    private CrookSolver crookSolver;
+    private int[][] initialSudoku;
     //The following two are temporary
     private final int[][] EXAMPLE_SUDOKU_EASY = {
             {0,0,0,8,9,0,0,0,4},
@@ -51,9 +56,12 @@ public class SudokuController {
      */
     public SudokuController() {
         this.sudoku = new Sudoku();
-        //We initialize the sudoku here for the time being
+        //We initialize the sudoku here for the time being.
+        //Comment the following line out if you want to initialize and empty board.
         this.sudoku.setContent(EXAMPLE_SUDOKU_HARD);
+        this.initializeBackup();
         this.backtracker = new Backtracker(this.sudoku);
+        this.crookSolver = new CrookSolver(this.sudoku);
     }
 
     /**
@@ -96,7 +104,41 @@ public class SudokuController {
     }
 
 
-    public boolean solve() {
-        return backtracker.solve();
+    /**
+     * Calls the solving algorithms.
+     * @return Returns true if the sudoku is solved.
+     */
+    public boolean solveWithBacktracker() {
+        this.backtracker.solve();
+        if (SudokuExaminer.checkForWinner(this.sudoku.getContent())) {
+            this.solved = true;
+            return true;
+        }
+        return false;
+    }
+
+    public boolean solveWithCrook() {
+        this.crookSolver.solve();
+        if (SudokuExaminer.checkForWinner(this.sudoku.getContent())) {
+            this.solved = true;
+            return true;
+        }
+        return false;
+    }
+
+    public void resetSudoku() {
+        this.sudoku.setContent(initialSudoku);
+        if (SudokuExaminer.checkForWinner(this.sudoku.getContent())) {
+            this.solved = true;
+        } else {
+            this.solved = false;
+        }
+    }
+
+    private void initializeBackup() {
+        initialSudoku = new int[9][9];
+        for (int y = 0; y < 9; y++) {
+            initialSudoku[y] = Arrays.copyOf(this.sudoku.getContent()[y], 9);
+        }
     }
 }

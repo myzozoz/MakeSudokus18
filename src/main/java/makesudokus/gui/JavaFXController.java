@@ -58,21 +58,64 @@ public class JavaFXController extends Application {
         //For each cell in the grid, create a new button.
         addButtonsToGrid(grid);
 
-        //Creating the "Solve" button
-        Button solveButton = new Button("Solve!");
-        solveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        solveButton.setStyle("-fx-background-color: crimson;" +
+        //Creating the "Solve" button for the backtracker algorithm
+        Button backtrackerButton = new Button("Backtracker");
+        backtrackerButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        backtrackerButton.setStyle("-fx-background-color: crimson;" +
                 "-fx-font-size: 40px;" +
-                "-fx-alignment: center");
-        grid.add(solveButton,0,9,9,1);
+                "-fx-alignment: center;" +
+                "-fx-border-width: 5px;" +
+                "-fx-border-color: black;");
+        grid.add(backtrackerButton,0,9,3,1);
         //Solve Button event handler
-        solveButton.setOnAction((ActionEvent e) -> {
-            if (sudokuController.solve()) {
-                solveButton.setText("Solved!");
-                solveButton.setStyle("-fx-background-color: lime;" +
-                        "-fx-font-size: 40px;");
-                addButtonsToGrid(grid);
+        backtrackerButton.setOnAction((ActionEvent e) -> {
+            sudokuController.solveWithBacktracker();
+            if (sudokuController.isSolved()) {
+                backtrackerButton.setText("Solved!");
+                backtrackerButton.setStyle("-fx-background-color: lime;" +
+                        "-fx-font-size: 40px;" +
+                        "-fx-border-width: 5px;" +
+                        "-fx-border-color: black;");
             }
+            addButtonsToGrid(grid);
+        });
+
+        //creating the "Solve" button for Crook's algorithm
+        Button crookButton = new Button("Crook");
+        crookButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        crookButton.setStyle("-fx-background-color: crimson;" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center;" +
+                "-fx-border-width: 5px;" +
+                "-fx-border-color: black;");
+        grid.add(crookButton,3,9,3,1);
+        //Solve Button event handler
+        crookButton.setOnAction((ActionEvent e) -> {
+            sudokuController.solveWithCrook();
+            if (sudokuController.isSolved()) {
+                crookButton.setText("Solved!");
+                crookButton.setStyle("-fx-background-color: lime;" +
+                        "-fx-font-size: 40px;" +
+                        "-fx-border-width: 5px;" +
+                        "-fx-border-color: black;");
+            }
+            addButtonsToGrid(grid);
+        });
+
+        //Create a reset button
+        Button resetButton = new Button("Reset");
+        resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        resetButton.setStyle("-fx-background-color: deepskyblue;" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center;" +
+                "-fx-border-width: 5px;" +
+                "-fx-border-color: black;");
+        grid.add(resetButton,6,9,3,1);
+        //Solve Button event handler
+        resetButton.setOnAction((ActionEvent e) -> {
+            System.out.println("resetting...");
+            sudokuController.resetSudoku();
+            addButtonsToGrid(grid);
         });
 
         //Setting grid layout options
@@ -114,22 +157,23 @@ public class JavaFXController extends Application {
                 int[] coordinates = {x,y};
                 buttonMap.put(button.getId(), coordinates);
 
-                //Handler function to update the button/cell. Only apply if it started out as an empty cell.
-                if (number == "") {
-                    button.setOnAction((ActionEvent e) -> {
-                        int[] buttonCoordinates = buttonMap.get(button.getId());
-                        int currentNumber = sudokuController.getNumber(buttonCoordinates[0], buttonCoordinates[1]);
+                //Handler function to update the button/cell.
+                button.setOnAction((ActionEvent e) -> {
+                    int[] buttonCoordinates = buttonMap.get(button.getId());
+                    int currentNumber = sudokuController.getNumber(buttonCoordinates[0], buttonCoordinates[1]);
 
-                        int newNumber = currentNumber + 1;
-                        if (newNumber > 9) {
-                            newNumber = 0;
-                        }
+                    int newNumber = currentNumber + 1;
+                    if (newNumber > 9) {
+                        newNumber = 0;
+                    }
 
-                        sudokuController.updateNumber(buttonCoordinates[0], buttonCoordinates[1], newNumber);
-                        String newButtonText = newNumber == 0 ? "" : Integer.toString(newNumber);
-                        button.setText(newButtonText);
-                    });
-                }
+                    System.out.println("Button pressed! id:" + button.getId());
+
+                    sudokuController.updateNumber(buttonCoordinates[0], buttonCoordinates[1], newNumber);
+                    String newButtonText = newNumber == 0 ? "" : Integer.toString(newNumber);
+                    button.setText(newButtonText);
+                });
+
 
                 button.setStyle("-fx-background-color: darkslategrey; " +
                         "-fx-font-size: 26px;" +
