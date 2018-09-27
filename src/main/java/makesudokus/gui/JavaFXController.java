@@ -50,14 +50,58 @@ public class JavaFXController extends Application {
         rowConstraints.setPercentHeight(10);
         rowConstraints.setValignment(VPos.CENTER);
 
-        int[][] sudoku = sudokuController.getSudoku();
-
-
-        //For each cell in the grid, create a new button.
-        for (int y = 0; y < 9; y++){
-
+        for (int i = 0; i < 9; i++){
             grid.getColumnConstraints().add(colConstraint);
             grid.getRowConstraints().add(rowConstraints);
+        }
+
+        //For each cell in the grid, create a new button.
+        addButtonsToGrid(grid);
+
+        //Creating the "Solve" button
+        Button solveButton = new Button("Solve!");
+        solveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        solveButton.setStyle("-fx-background-color: crimson;" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center");
+        grid.add(solveButton,0,9,9,1);
+        //Solve Button event handler
+        solveButton.setOnAction((ActionEvent e) -> {
+            if (sudokuController.solve()) {
+                solveButton.setText("Solved!");
+                solveButton.setStyle("-fx-background-color: lime;" +
+                        "-fx-font-size: 40px;");
+                addButtonsToGrid(grid);
+            }
+        });
+
+        //Setting grid layout options
+        grid.setMinSize(300,300);
+        grid.setStyle("-fx-background-color: darkorange;" +
+                "-fx-grid-lines-visible: true;" +
+                "-fx-alignment: center");
+
+        //Create the scene
+        Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
+
+        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
+                System.out.println("Height: " + primaryStage.getHeight() + " Width: " + primaryStage.getWidth());
+
+        scene.widthProperty().addListener(stageSizeListener);
+        scene.heightProperty().addListener(stageSizeListener);
+
+        primaryStage.setMinHeight(534);
+        primaryStage.setMinWidth(534);
+        primaryStage.setTitle("MakeSudokus18");
+        primaryStage.setScene(scene);
+        primaryStage.show();
+    }
+
+
+    //Method for adding buttons to the sudoku
+    private void addButtonsToGrid(GridPane grid) {
+        int[][] sudoku = sudokuController.getSudoku();
+        for (int y = 0; y < 9; y++){
 
             for (int x = 0; x < 9; x++) {
                 String number = sudoku[y][x] == 0 ? "" : Integer.toString(sudoku[y][x]);
@@ -97,45 +141,6 @@ public class JavaFXController extends Application {
 
             }
         }
-
-        //Creating the "Solve" button
-        Button solveButton = new Button("Solve!");
-        solveButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        solveButton.setStyle("-fx-background-color: crimson;" +
-                "-fx-font-size: 40px;" +
-                "-fx-alignment: center");
-        grid.add(solveButton,0,9,9,1);
-        //Solve Button event handler
-        solveButton.setOnAction((ActionEvent e) -> {
-            if (sudokuController.solve()) {
-                solveButton.setText("Solved!");
-                solveButton.setStyle("-fx-background-color: lime;" +
-                        "-fx-font-size: 40px;");
-            }
-        });
-
-        //Setting grid layout options
-        grid.setMinSize(300,300);
-        grid.setStyle("-fx-background-color: darkorange;" +
-                "-fx-grid-lines-visible: true;" +
-                "-fx-alignment: center");
-
-        //Create the scene
-        Scene scene = new Scene(grid, SCREEN_WIDTH, SCREEN_HEIGHT);
-
-        ChangeListener<Number> stageSizeListener = (observable, oldValue, newValue) ->
-                System.out.println("Height: " + primaryStage.getHeight() + " Width: " + primaryStage.getWidth());
-
-        scene.widthProperty().addListener(stageSizeListener);
-        scene.heightProperty().addListener(stageSizeListener);
-
-        primaryStage.setMinHeight(534);
-        primaryStage.setMinWidth(534);
-        primaryStage.setTitle("MakeSudokus18");
-        primaryStage.setScene(scene);
-        primaryStage.show();
     }
-
-
 }
 
