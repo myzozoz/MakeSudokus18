@@ -6,3 +6,7 @@ build
 
 # gradle files
 .gradle
+gradle/wrapper
+
+# test files
+out

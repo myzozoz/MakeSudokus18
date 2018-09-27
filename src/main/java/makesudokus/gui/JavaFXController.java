@@ -98,7 +98,10 @@ public class JavaFXController extends Application {
     }
 
 
-    //Method for adding buttons to the sudoku
+    /** <p>Method for adding buttons to the sudoku</p>
+     *  Used to initially create the buttons but also to refresh the buttons.
+     *  Reform through rebirth
+     */
     private void addButtonsToGrid(GridPane grid) {
         int[][] sudoku = sudokuController.getSudoku();
         for (int y = 0; y < 9; y++){
