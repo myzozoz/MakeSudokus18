@@ -42,6 +42,7 @@ public class CrookSolver implements Solver {
     private void solveLoop() {
         //Check for singletons and turn them into known numbers
         board.checkSingletons();
+        board.preemptiveSets();
         sudoku.setContent(board.getBoardAsArray());
     }
 

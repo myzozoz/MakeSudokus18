@@ -155,4 +155,58 @@ public class SudokuBoard {
             }
         }
     }
+
+    /**
+     * Finds preemptive sets and does crossouts based on it.
+     */
+    public void preemptiveSets() {
+        preemptiveSetsBoxes();
+        preemptiveSetsRows();
+        preemptiveSetsColumns();
+    }
+
+    private void preemptiveSetsBoxes() {
+        //for every box
+        for(int yBox = 0; yBox < 3; yBox++) {
+            for (int xBox = 0; xBox < 3; xBox++) {
+
+                Cell[] set = new Cell[9];
+                for(int y = 0; y < 3; y++) {
+                    for(int x = 0; x < 3; x++) {
+                        set[3*y+x] = this.cells[yBox*3+y][xBox*3+x];
+                    }
+                }
+                //check the box for preemptive sets and do crossouts in the box
+                //PreemptiveSetExaminer.examine(set);
+            }
+        }
+
+
+    }
+
+    private void preemptiveSetsRows() {
+        //for every row
+        for(int y = 0; y < 9; y++) {
+            Cell[] set = new Cell[9];
+            for(int x = 0; x < 9; x++) {
+                set[x] = this.cells[y][x];
+            }
+            //check the row for preemptive sets
+            //crossouts in the row
+            //PreemptiveSetExaminer.examine(set);
+        }
+    }
+
+    private void preemptiveSetsColumns() {
+        //for every column
+        for(int x = 0; x < 9; x++) {
+            Cell[] set = new Cell[9];
+            for(int y = 0; y < 9; y++) {
+                set[y] = this.cells[y][x];
+            }
+            PreemptiveSetExaminer.examine(set);
+        }
+        //check the column for preemptive sets
+        //crossouts in the column
+    }
 }

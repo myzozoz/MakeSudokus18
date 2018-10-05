@@ -57,4 +57,18 @@ public class PreemptiveSet {
         return this.size;
     }
 
+    @Override
+    public String toString() {
+        String s = "{(";
+        for(int i = 0; i < markup.size() - 1; i++) {
+            s += markup.get(i) + ",";
+        }
+        s += markup.get(markup.size()-1) + ") | (";
+        for(int i = 0; i < cells.size() - 1; i++) {
+            s += i + ",";
+        }
+        s += cells.size() - 1 + ")}";
+        return s;
+    }
+
 }
