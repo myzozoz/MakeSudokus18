@@ -7,21 +7,21 @@ public class PreemptiveSetExaminer {
     /**
      * Really cool method that checks the given set for preemptive sets and does crossouts based on the findings.
      *
-     * We know that a set is a preemptive set by Crook's definition if it has m cells that only contain m different
-     * digits. To find these preemptive sets we will do a breadth-first search.
+     * We know that a set is a preemptive set by Crook's definition if it has p cells that contain m different
+     * digits and m=p. To find these preemptive sets I have applied a version of Dijkstra's algorithm.
      *
      * 1. We take the first cell that isn't complete. It is assumed that complete cells have already been
      * crossed out from the markups. The span of the markup of that cell is m and it contains the markup of only one
      * cell, so p=1.
-     * 2. We take a second cell, which is any other non-finished cell in the set. We now add its markup to the first
-     * cell's markup. Note that duplicates are thrown away. If the second cell had digits in its markup that the first
-     * didn't, m goes up by the amount of new digits added. p is incremented by one.
-     * 3. Repeat step 2 going deeper and deeper in the search tree. If at any point it is discovered that m=p, then we
-     * have a preemptive set. If we go deep enough to hit the last cell, then we know p=m, because the amount of digits
-     * we are still looking for must be the amount of empty cells.
-     * 4. Go back to step 1 and start over with the next cell.
-     * 5. Check the found preemptive sets. If there are sets that are subsets of other sets (or straight up duplicates,
-     * then the larger one will be thrown away.
+     * 2. We start a loop, that goes on until m=p or we run out of cells.
+     * 3. We then look at the markups of every other cell and calculate their "distance" from our current preemptive set.
+     * The distance from the set is the amount of digits the new cell has in their markup that aren't already in the
+     * markup of the preemptive set. The distances are stored in a separate distance table.
+     * 4. The "closest" cell is then added to the preemptive set. M is incremented by the distance to the newest cell
+     * and p is incremented by 1.
+     *
+     * Since all unknown cells of a set always compose a preemptive set, we are only interested in cases where p is
+     * smaller than the amount of unknown cells in the set.
      */
     public static void examine(Cell[] set) {
         //We only want to deal with unknown cells
