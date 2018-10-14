@@ -63,8 +63,10 @@ public class OrderedIntegerList {
                 return true;
             }
             if (number > this.contents[pointer]) {
-                if(start==pointer)
-                    start = pointer+1;
+                if(start==pointer) {
+                    start = pointer + 1;
+                    pointer++;
+                }
                 else
                     start = pointer;
             } else {

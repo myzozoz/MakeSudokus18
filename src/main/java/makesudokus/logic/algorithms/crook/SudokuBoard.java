@@ -147,24 +147,27 @@ public class SudokuBoard {
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
                 //If a cell is unkown but has only one possible digit left in its markups
-                //then set that number as the cells primary digit and cross it out
+                //then set that number as the cell's primary digit and cross it out
                 Cell c = cells[y][x];
                 if (!c.isKnown() && c.countMarkups() == 1) {
                     c.setDigit(c.getMarkupDigits()[0]);
+                    crossoutKnownCell(x, y);
                 }
             }
         }
     }
 
     /**
-     * Finds preemptive sets and does crossouts based on it.
+     * Calls the sub methods for rows, columns and boxes
      */
     public void preemptiveSets() {
         preemptiveSetsBoxes();
-        preemptiveSetsRows();
-        preemptiveSetsColumns();
+        preemptiveSetsRowsAndColumns();
     }
 
+    /**
+     * Iterates through every box and does cross outs based on the findings.
+     */
     private void preemptiveSetsBoxes() {
         //for every box
         for(int yBox = 0; yBox < 3; yBox++) {
@@ -177,36 +180,28 @@ public class SudokuBoard {
                     }
                 }
                 //check the box for preemptive sets and do crossouts in the box
-                //PreemptiveSetExaminer.examine(set);
+                PreemptiveSetExaminer.examine(set);
             }
         }
-
-
     }
 
-    private void preemptiveSetsRows() {
+    /**
+     * Iterates through every row and column and does cross outs based on the findings.
+     */
+    private void preemptiveSetsRowsAndColumns() {
         //for every row
         for(int y = 0; y < 9; y++) {
-            Cell[] set = new Cell[9];
+            Cell[] setRow = new Cell[9];
+            Cell[] setColumn = new Cell[9];
             for(int x = 0; x < 9; x++) {
-                set[x] = this.cells[y][x];
+                setRow[x] = this.cells[y][x];
+                setColumn[x] = this.cells[x][y];
             }
-            //check the row for preemptive sets
-            //crossouts in the row
-            //PreemptiveSetExaminer.examine(set);
+            //check the rows and columns for preemptive sets
+            //crossouts in the rows and columns
+            PreemptiveSetExaminer.examine(setColumn);
+            PreemptiveSetExaminer.examine(setRow);
         }
     }
 
-    private void preemptiveSetsColumns() {
-        //for every column
-        for(int x = 0; x < 9; x++) {
-            Cell[] set = new Cell[9];
-            for(int y = 0; y < 9; y++) {
-                set[y] = this.cells[y][x];
-            }
-            PreemptiveSetExaminer.examine(set);
-        }
-        //check the column for preemptive sets
-        //crossouts in the column
-    }
 }

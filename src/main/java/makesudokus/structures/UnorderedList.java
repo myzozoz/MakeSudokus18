@@ -74,7 +74,28 @@ public class UnorderedList {
         this.contents = newContents;
     }
 
+    /**
+     * Create and return a semi-deep copy of the current list. Semi-deep means, that the list will be a new one,
+     * but it will still contain the same object references as the old one.
+     * @return Returns a copy of the list.
+     */
+    public UnorderedList copy() {
+        UnorderedList list = new UnorderedList();
+        for (int i = 0; i < size; i++) {
+            list.add(this.contents[i]);
+        }
+        return list;
+    }
+
     public Object get(int index) {
         return this.contents[index];
+    }
+
+    /**
+     * Getter method for emptiness of list.
+     * @return Returns true if the list is empty.
+     */
+    public boolean empty() {
+        return this.size == 0;
     }
 }

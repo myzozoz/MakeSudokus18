@@ -43,6 +43,10 @@ public class PreemptiveSet {
         this.span = this.markup.size();
     }
 
+    public OrderedIntegerList getMarkup() {
+        return this.markup;
+    }
+
     /**
      * @return Returns the span of the set, or the amount of entries in the markup list.
      */

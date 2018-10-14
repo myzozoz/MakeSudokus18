@@ -2,6 +2,7 @@ package makesudokus.logic.algorithms.crook;
 
 import makesudokus.logic.Sudoku;
 import makesudokus.logic.algorithms.Solver;
+import makesudokus.logic.algorithms.SudokuExaminer;
 
 
 /**
@@ -25,7 +26,6 @@ public class CrookSolver implements Solver {
      */
     public boolean solve() {
         this.board = new SudokuBoard(this.sudoku.getContent());
-        System.out.println(this.board.getAllMarkups());
         solveLoop();
         return false;
     }
@@ -40,10 +40,18 @@ public class CrookSolver implements Solver {
      * (i.e. no more solved numbers via preemptive sets)
      */
     private void solveLoop() {
+        long sysTimeStart = System.currentTimeMillis();
+        int iterationCount = 0;
         //Check for singletons and turn them into known numbers
-        board.checkSingletons();
-        board.preemptiveSets();
-        sudoku.setContent(board.getBoardAsArray());
+        while(!SudokuExaminer.checkForWinner(sudoku.getContent())){
+            System.out.println(this.board.getAllMarkups());
+            board.checkSingletons();
+            board.preemptiveSets();
+            sudoku.setContent(board.getBoardAsArray());
+            iterationCount++;
+        }
+        System.out.println("Solved in " + (System.currentTimeMillis() - sysTimeStart) + "ms");
+        System.out.println("With " + iterationCount + " calls");
     }
 
 }
