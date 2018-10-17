@@ -2,7 +2,9 @@
 Tiralabran projekti. Sudokujen ratkontatyökalu.
 
 [Linkki määrittelydokumenttiin](/documentation/maarittely.md)
+
 [Testausdokumentaatio](/documentation/testausdokumentti.md)
+
 [Toteutusdokumentaatio](/documentation/toteutusdokumentti.md)
 
 

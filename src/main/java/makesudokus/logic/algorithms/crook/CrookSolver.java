@@ -44,7 +44,7 @@ public class CrookSolver implements Solver {
         int iterationCount = 0;
         //Check for singletons and turn them into known numbers
         while(!SudokuExaminer.checkForWinner(sudoku.getContent())){
-            System.out.println(this.board.getAllMarkups());
+            //System.out.println(this.board.getAllMarkups());
             board.checkSingletons();
             board.preemptiveSets();
             sudoku.setContent(board.getBoardAsArray());
