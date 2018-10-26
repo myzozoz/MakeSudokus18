@@ -85,7 +85,7 @@ public class SudokuController {
     };
 
     /**
-     * Constructor, initializes a test sudoku and solver class.
+     * Constructor, initializes a sudoku and the solver classes.
      */
     public SudokuController() {
         this.sudoku = new Sudoku();

@@ -5,6 +5,9 @@ public class OrderedIntegerList {
     private int[] contents;
     private int size;
 
+    /**
+     * Constructor for the unordered integer list type
+     */
     public OrderedIntegerList() {
         this.contents = new int[DEFAULT_SIZE];
         this.size = 0;
@@ -35,7 +38,6 @@ public class OrderedIntegerList {
             }
         }
     }
-
 
     /**
      * Increases the capacity of the array under the hood
@@ -79,6 +81,12 @@ public class OrderedIntegerList {
         return false;
     }
 
+    /**
+     * Fetches an item from the list.
+     *
+     * @param index Index of the integer searched for.
+     * @return Returns the integer at the given index.
+     */
     public int get(int index){
         if(index >= this.size) {
             System.out.println("Illegal index get request");
@@ -87,6 +95,10 @@ public class OrderedIntegerList {
         return this.contents[index];
     }
 
+    /**
+     *
+     * @return Returns the size of the list.
+     */
     public int size() {
         return this.size;
     }

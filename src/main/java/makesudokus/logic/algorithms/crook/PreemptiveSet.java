@@ -43,6 +43,10 @@ public class PreemptiveSet {
         this.span = this.markup.size();
     }
 
+    /**
+     * Getter for the markup of the preemptive list.
+     * @return Returns the markup gathered in the preemptive list.
+     */
     public OrderedIntegerList getMarkup() {
         return this.markup;
     }
@@ -61,6 +65,10 @@ public class PreemptiveSet {
         return this.size;
     }
 
+    /**
+     *
+     * @return Returns the preemptive set as a string.
+     */
     @Override
     public String toString() {
         String s = "{(";

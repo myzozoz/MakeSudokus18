@@ -5,6 +5,9 @@ public class UnorderedList {
     private Object[] contents;
     private int size;
 
+    /**
+     * Constructor for the UnorderedList type.
+     */
     public UnorderedList() {
         this.contents = new Object[DEFAULT_SIZE];
         this.size = 0;
@@ -87,6 +90,11 @@ public class UnorderedList {
         return list;
     }
 
+    /**
+     * Fetches an item from the list.
+     * @param index Index of the item searched for.
+     * @return Returns the item at the given index.
+     */
     public Object get(int index) {
         return this.contents[index];
     }
