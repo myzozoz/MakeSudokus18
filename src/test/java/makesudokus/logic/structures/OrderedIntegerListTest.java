@@ -14,13 +14,13 @@ public class OrderedIntegerListTest {
     public void init() {
         oil = new OrderedIntegerList();
     }
-/*
+
     @Test
     public void findsContainedNumber() {
         oil.add(10);
         assertTrue(oil.contains(10));
     }
-*/
+
 
     @Test
     public void canAddNumbers() {
@@ -45,4 +45,19 @@ public class OrderedIntegerListTest {
         assertEquals(20, oil.get(3));
     }
 
+    @Test
+    public void canAddLoadsOfIntegers() {
+        for(int i = 0; i < 1000000; i++) {
+            oil.add(i);
+        }
+        assertEquals(1000000, oil.size());
+    }
+
+    @Test
+    public void illegalIndexReturnsNegativeDevil() {
+        oil.add(100);
+        assertEquals(-666, oil.get(-1));
+        assertEquals(-666, oil.get(1));
+        assertEquals(-666, oil.get(10000));
+    }
 }

@@ -65,4 +65,24 @@ public class UnorderedListTest {
         ul.remove(10);
         assertEquals(4, ul.size());
     }
+
+    @Test
+    public void emptyReturnsTrueWhenEmpty() {
+        assertTrue(ul.empty());
+        ul.add(100);
+        ul.remove(0);
+        assertTrue(ul.empty());
+    }
+
+    @Test
+    public void canCopyList() {
+        for (int i = 0; i < 10; i++) {
+            ul.add(i*100);
+        }
+        UnorderedList newList = ul.copy();
+        for(int i = 0; i < 10; i++) {
+            assertEquals(ul.get(i), newList.get(i));
+        }
+
+    }
 }

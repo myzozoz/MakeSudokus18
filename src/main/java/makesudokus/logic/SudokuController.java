@@ -164,9 +164,8 @@ public class SudokuController {
         this.crookSolver.solve();
         if (SudokuExaminer.checkForWinner(this.sudoku.getContent())) {
             this.solved = true;
-            return true;
         }
-        return false;
+        return true;
     }
 
     /**

@@ -88,7 +88,7 @@ public class OrderedIntegerList {
      * @return Returns the integer at the given index.
      */
     public int get(int index){
-        if(index >= this.size) {
+        if(index >= this.size || index < 0) {
             System.out.println("Illegal index get request");
             return -666;
         }
