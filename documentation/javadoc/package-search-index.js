@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"makesudokus.domain"},{"l":"makesudokus.gui"},{"l":"makesudokus.logic"},{"l":"makesudokus.logic.algorithms"},{"l":"makesudokus.logic.algorithms.crook"},{"l":"makesudokus.structures"}]

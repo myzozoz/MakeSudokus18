@@ -1,0 +1,6 @@
+makesudokus.domain
+makesudokus.gui
+makesudokus.logic
+makesudokus.logic.algorithms
+makesudokus.logic.algorithms.crook
+makesudokus.structures
