@@ -48,22 +48,4 @@ public class SudokuBoardTest {
     public void getMarkupsReturnsCorrectString() {
         assertEquals("Markups in cell (0, 0)[6]\n", board2.getAllMarkups());
     }
-/*
-    @Test
-    public void checkSingletonsEntersCorrectDigits() {
-        int[][] singletonsChecked = {
-                {0, 0, 0, 8, 9, 0, 0, 0, 4},
-                {9, 8, 5, 1, 3, 4, 6, 2, 7},
-                {0, 7, 4, 0, 0, 0, 0, 1, 9},
-                {0, 0, 0, 4, 1, 9, 0, 5, 2},
-                {0, 0, 9, 7, 6, 5, 1, 0, 0},
-                {7, 5, 1, 2, 8, 3, 0, 9, 6},
-                {0, 1, 7, 0, 0, 0, 3, 6, 0},
-                {6, 9, 0, 5, 7, 1, 2, 4, 0},
-                {5, 4, 0, 3, 0, 0, 0, 0, 0}
-        };
-        board.checkSingletons();
-        assertArrayEquals(singletonsChecked, board.getBoardAsArray());
-    }
-    */
 }

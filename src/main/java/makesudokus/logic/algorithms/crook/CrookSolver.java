@@ -1,6 +1,7 @@
 package makesudokus.logic.algorithms.crook;
 
 import makesudokus.logic.Sudoku;
+import makesudokus.logic.algorithms.Backtracker;
 import makesudokus.logic.algorithms.Solver;
 import makesudokus.logic.algorithms.SudokuExaminer;
 
@@ -44,14 +45,20 @@ public class CrookSolver implements Solver {
         int iterationCount = 0;
         //Check for singletons and turn them into known numbers
         while(!SudokuExaminer.checkForWinner(sudoku.getContent())){
+            String checkString = board.getAllMarkups();
             //System.out.println(this.board.getAllMarkups());
             board.checkSingletons();
             board.preemptiveSets();
             sudoku.setContent(board.getBoardAsArray());
             iterationCount++;
+            if (checkString.equals(board.getAllMarkups())) {
+                System.out.println("Had to call backtracker at iteration " + iterationCount);
+                Backtracker br = new Backtracker(sudoku);
+                br.solve();
+            }
         }
         System.out.println("Solved in " + (System.currentTimeMillis() - sysTimeStart) + "ms");
-        System.out.println("With " + iterationCount + " calls");
+        System.out.println("With " + iterationCount + " iterations");
     }
 
 }

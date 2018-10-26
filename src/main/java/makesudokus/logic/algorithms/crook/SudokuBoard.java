@@ -133,17 +133,11 @@ public class SudokuBoard {
      *
      * There are two types of singletons. The checkSingletons() method is responsible for calling
      * the different types of checks.
+     *
+     * @return Returns true if something was changed
      */
-    public void checkSingletons() {
-        checkSingletonsSingleMarkup();
-    }
-
-    /**
-     * This method finds cases, where all other digits have been excluded from a cell, then
-     * places the last available digit as the primary digit for the cell, changing its
-     * status to "known".
-     */
-    private void checkSingletonsSingleMarkup() {
+    public boolean checkSingletons() {
+        boolean changed = false;
         for (int y = 0; y < 9; y++) {
             for (int x = 0; x < 9; x++) {
                 //If a cell is unkown but has only one possible digit left in its markups
@@ -152,9 +146,11 @@ public class SudokuBoard {
                 if (!c.isKnown() && c.countMarkups() == 1) {
                     c.setDigit(c.getMarkupDigits()[0]);
                     crossoutKnownCell(x, y);
+                    changed = true;
                 }
             }
         }
+        return changed;
     }
 
     /**

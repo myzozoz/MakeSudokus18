@@ -91,7 +91,7 @@ public class SudokuController {
         this.sudoku = new Sudoku();
         //We initialize the sudoku here for the time being.
         //Comment the following line out if you want to initialize and empty board.
-        this.sudoku.setContent(EXAMPLE_SUDOKU_HARD);
+        this.sudoku.setContent(EXAMPLE_SUDOKU_EXTREME_CROOK);
         this.initializeBackup();
         this.backtracker = new Backtracker(this.sudoku);
         this.crookSolver = new CrookSolver(this.sudoku);
