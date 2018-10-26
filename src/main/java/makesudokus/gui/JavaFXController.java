@@ -23,8 +23,8 @@ import java.util.HashMap;
 public class JavaFXController extends Application {
     private SudokuController sudokuController;
     private HashMap<String, int[]> buttonMap;
-    private final int SCREEN_WIDTH = 900;
-    private final int SCREEN_HEIGHT = 900;
+    private final int SCREEN_WIDTH = 1000;
+    private final int SCREEN_HEIGHT = 1000;
 
     /**
      * Contains the GUI stuff.
@@ -57,66 +57,6 @@ public class JavaFXController extends Application {
 
         //For each cell in the grid, create a new button.
         addButtonsToGrid(grid);
-
-        //Creating the "Solve" button for the backtracker algorithm
-        Button backtrackerButton = new Button("Backtracker");
-        backtrackerButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        backtrackerButton.setStyle("-fx-background-color: crimson;" +
-                "-fx-font-size: 40px;" +
-                "-fx-alignment: center;" +
-                "-fx-border-width: 5px;" +
-                "-fx-border-color: black;");
-        grid.add(backtrackerButton,0,9,3,1);
-        //Solve Button event handler
-        backtrackerButton.setOnAction((ActionEvent e) -> {
-            sudokuController.solveWithBacktracker();
-            if (sudokuController.isSolved()) {
-                backtrackerButton.setText("Solved!");
-                backtrackerButton.setStyle("-fx-background-color: lime;" +
-                        "-fx-font-size: 40px;" +
-                        "-fx-border-width: 5px;" +
-                        "-fx-border-color: black;");
-            }
-            addButtonsToGrid(grid);
-        });
-
-        //creating the "Solve" button for Crook's algorithm
-        Button crookButton = new Button("Crook");
-        crookButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        crookButton.setStyle("-fx-background-color: crimson;" +
-                "-fx-font-size: 40px;" +
-                "-fx-alignment: center;" +
-                "-fx-border-width: 5px;" +
-                "-fx-border-color: black;");
-        grid.add(crookButton,3,9,3,1);
-        //Solve Button event handler
-        crookButton.setOnAction((ActionEvent e) -> {
-            sudokuController.solveWithCrook();
-            if (sudokuController.isSolved()) {
-                crookButton.setText("Solved!");
-                crookButton.setStyle("-fx-background-color: lime;" +
-                        "-fx-font-size: 40px;" +
-                        "-fx-border-width: 5px;" +
-                        "-fx-border-color: black;");
-            }
-            addButtonsToGrid(grid);
-        });
-
-        //Create a reset button
-        Button resetButton = new Button("Reset");
-        resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
-        resetButton.setStyle("-fx-background-color: deepskyblue;" +
-                "-fx-font-size: 40px;" +
-                "-fx-alignment: center;" +
-                "-fx-border-width: 5px;" +
-                "-fx-border-color: black;");
-        grid.add(resetButton,6,9,3,1);
-        //Solve Button event handler
-        resetButton.setOnAction((ActionEvent e) -> {
-            System.out.println("resetting...");
-            sudokuController.resetSudoku();
-            addButtonsToGrid(grid);
-        });
 
         //Setting grid layout options
         grid.setMinSize(300,300);
@@ -188,6 +128,60 @@ public class JavaFXController extends Application {
 
             }
         }
+
+        String solveColor = "white";
+        if (sudokuController.isSolved()) {
+            solveColor = "lime";
+        } else {
+            solveColor = "crimson";
+        }
+
+        //Creating the "Solve" button for the backtracker algorithm
+        Button backtrackerButton = new Button(sudokuController.isSolved() ? "Solved!" : "Backtracker");
+        backtrackerButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        backtrackerButton.setStyle("-fx-background-color: " + solveColor + ";" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center;" +
+                "-fx-border-width: 5px;" +
+                "-fx-border-color: black;");
+        grid.add(backtrackerButton,0,9,3,1);
+        //Backtracking Solve Button event handler
+        backtrackerButton.setOnAction((ActionEvent e) -> {
+            sudokuController.solveWithBacktracker();
+            addButtonsToGrid(grid);
+        });
+
+        //creating the "Solve" button for Crook's algorithm
+        Button crookButton = new Button(sudokuController.isSolved() ? "Solved!" : "Crook");
+        crookButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        crookButton.setStyle("-fx-background-color: " + solveColor + ";" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center;" +
+                "-fx-border-width: 5px;" +
+                "-fx-border-color: black;");
+        grid.add(crookButton,3,9,3,1);
+        //Crook's Solve Button event handler
+        crookButton.setOnAction((ActionEvent e) -> {
+            sudokuController.solveWithCrook();
+            addButtonsToGrid(grid);
+        });
+
+        //Create a reset button
+        Button resetButton = new Button("Reset");
+        resetButton.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
+        resetButton.setStyle("-fx-background-color: deepskyblue;" +
+                "-fx-font-size: 40px;" +
+                "-fx-alignment: center;" +
+                "-fx-border-width: 5px;" +
+                "-fx-border-color: black;");
+        grid.add(resetButton,6,9,3,1);
+        //Reset Button event handler
+        resetButton.setOnAction((ActionEvent e) -> {
+            System.out.println("resetting...");
+            sudokuController.resetSudoku();
+            addButtonsToGrid(grid);
+        });
+
     }
 }
 
